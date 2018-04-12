@@ -18,13 +18,14 @@ public class Producer extends Thread{
     public Buffer buffer;
     public Queue<Operation> the_queue;
     public int max_size_of_queue;
-    public final int wait_mills = 300;
+    public long wait_mills;
     javax.swing.table.DefaultTableModel toDoTable;
     
-    public Producer(int id, Buffer buffer, Queue<Operation> the_queue, int size, javax.swing.table.DefaultTableModel toDoTable){
+    public Producer(int id, Buffer buffer, Queue<Operation> the_queue, int size, long time, javax.swing.table.DefaultTableModel toDoTable){
         this.id = id;
         this.buffer = buffer;
         this.the_queue = the_queue;
+        this.wait_mills = time;
         this.max_size_of_queue = size;
         this.toDoTable = toDoTable;
     }

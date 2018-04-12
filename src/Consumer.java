@@ -19,15 +19,16 @@ public class Consumer extends Thread{
     public Operation operation;
     public Queue<Operation> the_queue;
     public int max_size_of_queue;
-    public final int wait_mills = 100;
+    public long wait_mills;
     javax.swing.table.DefaultTableModel toDoTable;
     javax.swing.table.DefaultTableModel doneTable;
     
-    public Consumer(int id, Buffer buffer, Queue<Operation> the_queue, int size, javax.swing.table.DefaultTableModel toDoTable, javax.swing.table.DefaultTableModel doneTable){
+    public Consumer(int id, Buffer buffer, Queue<Operation> the_queue, int size, long time, javax.swing.table.DefaultTableModel toDoTable, javax.swing.table.DefaultTableModel doneTable){
         this.id = id;
         this.buffer = buffer;
         this.the_queue = the_queue;
         this.max_size_of_queue = size;
+        this.wait_mills = time;
         this.toDoTable = toDoTable;
         this.doneTable = doneTable;
     }

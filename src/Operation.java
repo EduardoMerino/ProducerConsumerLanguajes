@@ -17,7 +17,9 @@ public class Operation {
     public String symbol;
     public int operator1;
     public int operator2;
-    
+    public int max;
+    public int min;
+    public MyGUIFrame gui;
     /* Constructor
      * No parameters
      * Creates an scheme format operation with numbers between
@@ -26,8 +28,10 @@ public class Operation {
     public Operation(){
         Random random = new Random();
         this.setRandomSymbol();
-        this.operator1 = random.nextInt(100 - 1 + 1) + 1;
-        this.operator2 = random.nextInt(100 - 1 + 1) + 1;
+        this.max = gui.getMaxRange();
+        this.min = gui.getMinRange();
+        this.operator1 = random.nextInt(this.max - this.min + 1) + this.min;
+        this.operator2 = random.nextInt(this.max - this.min + 1) + this.min;
     }
     
     /* Constructor
@@ -38,6 +42,8 @@ public class Operation {
     public Operation(int max, int min){
         Random random = new Random();
         this.setRandomSymbol();
+        max = gui.getMaxRange();
+        min = gui.getMinRange();
         this.operator1 = random.nextInt(max - min + 1) + min;
         this.operator2 = random.nextInt(max - min + 1) + min;
     }

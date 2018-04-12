@@ -101,19 +101,18 @@ public class Buffer {
             System.out.println("Queue size " + this.max_size);
         }
         
-        
         if(num_producers <= 0){
             JOptionPane.showMessageDialog(null, "Must have at least one Producer");
         }else{
             for(int i = 1; i <= num_producers; i++){
-                new Producer(i, this, this.the_queue, this.max_size, gui.getToDoTable()).start();
+                new Producer(i, this, this.the_queue, this.max_size, gui.getProducerTime(), gui.getToDoTable()).start();
             }
         }
         if(num_consumers <= 0){
             JOptionPane.showMessageDialog(null, "Must have at least one Consumer");
         }else{
             for(int j = 1; j <= num_consumers; j++){
-                new Consumer(j, this, this.the_queue, gui.getMaxSizeOfBuffer(), gui.getToDoTable(), gui.getDoneTable()).start();
+                new Consumer(j, this, this.the_queue, gui.getMaxSizeOfBuffer(), gui.getConsumerTime(), gui.getToDoTable(), gui.getDoneTable()).start();
             }
         }
         
