@@ -20,12 +20,26 @@ public class Operation {
     
     /* Constructor
      * No parameters
+     * Creates an scheme format operation with numbers between
+        the maximum of 100 and a minimum of 1
      */
     public Operation(){
         Random random = new Random();
         this.setRandomSymbol();
         this.operator1 = random.nextInt(100 - 1 + 1) + 1;
         this.operator2 = random.nextInt(100 - 1 + 1) + 1;
+    }
+    
+    /* Constructor
+     * Max and Min parameters
+     * Creates an scheme format operation with numbers between
+        the maximum and minimum determined by the user
+     */
+    public Operation(int max, int min){
+        Random random = new Random();
+        this.setRandomSymbol();
+        this.operator1 = random.nextInt(max - min + 1) + min;
+        this.operator2 = random.nextInt(max - min + 1) + min;
     }
     
     /*

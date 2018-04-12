@@ -278,7 +278,7 @@ public class MyGUIFrame extends javax.swing.JFrame {
     public int getMaxSizeOfBuffer(){
         int size = 0;
         try{
-            Integer.parseInt(this.jTextField3.getText());
+            size = Integer.parseInt(this.jTextField3.getText());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Buffer must be of a positive integer number > 0");
             System.out.println(e);

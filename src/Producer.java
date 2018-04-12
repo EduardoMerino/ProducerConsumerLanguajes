@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 public class Producer extends Thread{
     
     public int id;
-    //public Operation operation;
     public Buffer buffer;
     public Queue<Operation> the_queue;
     public int max_size_of_queue;

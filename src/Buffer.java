@@ -94,7 +94,7 @@ public class Buffer {
         int num_consumers = gui.getNumberOfConsumers();
         
         if(buffer_size <= 0){
-            JOptionPane.showMessageDialog(null, "Must have at least one Consumer");
+            JOptionPane.showMessageDialog(null, "Must have a buffer larger than 0");
         }else{
             gui.setRowsToDoTable(buffer_size);
             this.max_size = gui.getRowsToDoTable();
@@ -103,7 +103,7 @@ public class Buffer {
         
         
         if(num_producers <= 0){
-            JOptionPane.showMessageDialog(null, "Must have at least one Consumer");
+            JOptionPane.showMessageDialog(null, "Must have at least one Producer");
         }else{
             for(int i = 1; i <= num_producers; i++){
                 new Producer(i, this, this.the_queue, this.max_size, gui.getToDoTable()).start();
