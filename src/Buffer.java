@@ -20,14 +20,19 @@ public class Buffer {
     public int max_size, num_producers, num_consumers;
     public Consumer consumer;
     public Producer producer;
+    public int max;
+    public int min;
+    public MyGUIFrame gui;
     
-    public Buffer(int max_size){
+    public Buffer(int max_size, int max, int min){
         this.max_size = max_size;
         this.the_queue = new LinkedList<>();
+        this.max = max; 
+        this.min = min;
     }
     
     synchronized public String produceOperation(int id){
-        Operation operation = new Operation();
+        Operation operation = new Operation(this.max, this.min);
         if(this.the_queue.size() >= this.max_size){
             try {
                 //Thread.sleep(this.wait_mills);
@@ -83,7 +88,7 @@ public class Buffer {
         
         start_button.addActionListener((java.awt.event.ActionEvent evt) -> {
             //Start Buffer:
-            Buffer buf = new Buffer(gui.getMaxSizeOfBuffer());
+            Buffer buf = new Buffer(gui.getMaxSizeOfBuffer(), gui.getMaxNumberOperation(), gui.getMinNumberOperation());
             buf.produceAndConsume(gui);
         });
     }
