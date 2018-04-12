@@ -1,4 +1,5 @@
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -253,15 +254,36 @@ public class MyGUIFrame extends javax.swing.JFrame {
     
     public int getNumberOfProducers(){
         //asuming the input is allways parseable to a number
-        return Integer.parseInt(this.jTextField1.getText());
+        int number_producers = 0;
+        try{
+            number_producers = Integer.parseInt(this.jTextField1.getText());
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Producers must be of a positive integer number > 0");
+            System.out.println(e);
+        }
+        return number_producers;
     }
     
     public int getNumberOfConsumers(){
-        return Integer.parseInt(this.jTextField2.getText());
+        int number_consumers = 0;
+        try{
+            number_consumers = Integer.parseInt(this.jTextField2.getText());
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Consumers must be of a positive integer number > 0");
+            System.out.println(e);
+        }
+        return number_consumers;
     }
     
     public int getMaxSizeOfBuffer(){
-        return Integer.parseInt(this.jTextField3.getText());
+        int size = 0;
+        try{
+            Integer.parseInt(this.jTextField3.getText());
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Buffer must be of a positive integer number > 0");
+            System.out.println(e);
+        }
+        return size;
     }
     
     public javax.swing.JButton getStartButton(){
@@ -274,5 +296,13 @@ public class MyGUIFrame extends javax.swing.JFrame {
 
     public DefaultTableModel getDoneTable(){
         return (DefaultTableModel)this.jTable3.getModel();
+    }
+    
+    public void setRowsToDoTable(int buffsize){
+        getToDoTable().setRowCount(buffsize);
+    }
+    
+    public int getRowsToDoTable(){
+        return getToDoTable().getRowCount();
     }
 }

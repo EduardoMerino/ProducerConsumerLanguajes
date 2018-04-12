@@ -1,4 +1,3 @@
-
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +19,7 @@ public class Consumer extends Thread{
     public Operation operation;
     public Queue<Operation> the_queue;
     public int max_size_of_queue;
-    public final int wait_mills = 1000;
+    public final int wait_mills = 100;
     javax.swing.table.DefaultTableModel toDoTable;
     javax.swing.table.DefaultTableModel doneTable;
     
@@ -38,6 +37,7 @@ public class Consumer extends Thread{
         while(true) {
             String[] solution = buffer.consumeOperation(this.id);
             this.toDoTable.removeRow(0);
+            buffer.max_size = buffer.max_size - 1;
             this.doneTable.insertRow(0, new Object[]{ this.id, solution[0], solution[1]});
              try {
                  Thread.sleep(this.wait_mills);

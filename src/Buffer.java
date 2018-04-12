@@ -1,8 +1,8 @@
-
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -37,11 +37,11 @@ public class Buffer {
             }
             //return "";
         }
-            this.the_queue.offer(operation);
-            notifyAll();
-            System.out.println("I " + id + " produced: " + operation);
-            return operation.toString();
-        
+        this.the_queue.offer(operation);
+        notifyAll();
+        System.out.println("I " + id + " produced: " + operation);
+        System.out.println(this.the_queue.size());
+        return operation.toString();   
     }
   
    
@@ -72,13 +72,6 @@ public class Buffer {
      *
      * @param num
      */
-    public void setNumberOfProducers(int num){
-        this.num_producers = num;
-    } 
-    
-    public void setNumberOfConsumers(int num){
-        this.num_consumers = num;
-    }
     
     @SuppressWarnings("static-access")
     public static void main(String[] args){
@@ -91,18 +84,38 @@ public class Buffer {
         start_button.addActionListener((java.awt.event.ActionEvent evt) -> {
             //Start Buffer:
             Buffer buf = new Buffer(gui.getMaxSizeOfBuffer());
-            buf.setNumberOfProducers(gui.getNumberOfProducers());
-            buf.setNumberOfConsumers(gui.getNumberOfConsumers());
             buf.produceAndConsume(gui);
         });
     }
     
     public void produceAndConsume(MyGUIFrame gui){
-        for(int i = 1; i <= this.num_producers; i++){
-            new Producer(i, this, this.the_queue, this.max_size, gui.getToDoTable()).start();
+        int buffer_size = gui.getMaxSizeOfBuffer();
+        int num_producers = gui.getNumberOfProducers();
+        int num_consumers = gui.getNumberOfConsumers();
+        
+        if(buffer_size <= 0){
+            JOptionPane.showMessageDialog(null, "Must have at least one Consumer");
+        }else{
+            gui.setRowsToDoTable(buffer_size);
+            this.max_size = gui.getRowsToDoTable();
+            System.out.println("Queue size " + this.max_size);
         }
-        for(int j = 1; j <= this.num_consumers; j++){
-            new Consumer(j, this, this.the_queue, this.max_size, gui.getToDoTable(), gui.getDoneTable()).start();
+        
+        
+        if(num_producers <= 0){
+            JOptionPane.showMessageDialog(null, "Must have at least one Consumer");
+        }else{
+            for(int i = 1; i <= num_producers; i++){
+                new Producer(i, this, this.the_queue, this.max_size, gui.getToDoTable()).start();
+            }
         }
+        if(num_consumers <= 0){
+            JOptionPane.showMessageDialog(null, "Must have at least one Consumer");
+        }else{
+            for(int j = 1; j <= num_consumers; j++){
+                new Consumer(j, this, this.the_queue, gui.getMaxSizeOfBuffer(), gui.getToDoTable(), gui.getDoneTable()).start();
+            }
+        }
+        
     }
 }

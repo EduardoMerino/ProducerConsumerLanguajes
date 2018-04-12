@@ -1,4 +1,3 @@
-
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,16 +29,12 @@ public class Producer extends Thread{
         this.max_size_of_queue = size;
         this.toDoTable = toDoTable;
     }
-
-    Producer() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     @Override
     public void run(){
-        while(true) {
+        while(this.max_size_of_queue <= this.buffer.max_size) {
             String operation = buffer.produceOperation(this.id);
-        
+            buffer.max_size++;
             this.toDoTable.addRow(new Object[]{this.id, operation});    
             try {
                 Thread.sleep(this.wait_mills);
